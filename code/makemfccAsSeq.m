@@ -13,7 +13,7 @@ for file = files'
     count = count + 1;
     if(mod(count,3)==0)
         agg_mfcc{index} = temp; %agg_mfcc is aggregated mfcc
-        audata = [];
+        temp = [];
         index = index + 1;
     end
 end
@@ -23,12 +23,12 @@ end
 
 for i = 1:length(agg_mfcc)
     len = length(agg_mfcc{i});
-    
     factor = floor(len/2080);
     for j = 1:factor
-        l = 2080*factor-2079;
-        u = 2080*factor;
-        encodeIn(factor,l:u,i) = agg_mfcc{i}(1,l:u);
+        l = 2080*j-2079;
+        u = 2080*j;
+        tempp = agg_mfcc{1,i}(1,l:u);
+        encodeIn{i}(j,1:2080) = tempp;
     end
 end
     
@@ -36,4 +36,3 @@ end
     
 cd ..;cd ..;cd ..;
 cd code;
-%a(find(isnan(a)))=[]; 
